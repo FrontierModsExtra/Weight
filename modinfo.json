@@ -1,0 +1,17 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "weight",
+
+    "name": "Weight",
+    "description": "Makes carried weight affect stamina consumption and fatigue buildup",
+
+    "authors": ["Hyperseeker"],
+
+    "category": "rebalance",
+
+    "dependencies": ["dda"],
+
+    "path": "json"
+  }
+]

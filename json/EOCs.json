@@ -1,0 +1,69 @@
+[
+  {
+    "id": "WEIGHT_INIT",
+    "type": "effect_on_condition",
+    "eoc_type": "EVENT",
+    "required_event": "game_begin",
+
+    "effect": [
+      { "u_lose_effect": "weight_affects_stamina" },
+      { "u_add_effect": "weight_affects_stamina", "duration": 31536000 }
+    ]
+  },
+  {
+    "id": "EOC_GET_STAMINA_CONSUMPTION_MODIFIER",
+    "type": "effect_on_condition",
+    "eoc_type": "EVENT",
+    "required_event": "avatar_moves",
+
+    "effect": [
+      {
+        "math": ["u_inventory_weight", "=", "0"]
+      },
+      {
+        "u_run_inv_eocs": "all",
+        "search_data": [{ "worn_only": true }],
+        "true_eocs": [
+          {
+            "id": "GET_INVENTORY_WEIGHT_WORN",
+            "effect": [
+              {
+                "math": ["u_inventory_weight", "+=", "n_val('weight')"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "//": "wielded items are separate from worn items",
+        "u_run_inv_eocs": "all",
+        "search_data": [{ "wielded_only": true }],
+        "true_eocs": [
+          {
+            "id": "GET_INVENTORY_WEIGHT_WIELDED",
+            "effect": [
+              {
+                "math": ["u_inventory_weight", "+=", "n_val('weight')"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "//math": "dividing inventory weight by 10M because the weight is calculated in milligrams, and we'd like kilograms",
+        "math": [
+          "u_stamina_modifier",
+          "=",
+          "1 + ((u_inventory_weight / 10000000) ^ 2) / (u_val('strength') * 0.34)"
+        ]
+      },
+      {
+        "math": ["u_val('stamina')", "-=", "u_stamina_modifier ^ 2"]
+      },
+      {
+        "math": ["u_val('fatigue')", "+=", "u_stamina_modifier / 150"]
+      },
+      { "u_message": "<u_val:stamina_modifier>" }
+    ]
+  }
+]
