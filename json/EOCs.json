@@ -18,7 +18,7 @@
     ],
 
     "effect": [
-      { "math": ["_debug_weight", "=", "0"] },
+      { "math": ["debug_weight", "=", "0"] },
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
       { "u_lose_effect": "weight_affects_stamina" },
       { "u_add_effect": "weight_affects_stamina", "duration": 31536000 }
@@ -92,7 +92,7 @@
         "math": ["u_val('stamina')", "-=", "_stamina_delta"]
       },
       {
-        "if": { "math": ["_debug_weight", "=", "1"] },
+        "if": { "math": ["debug_weight", "=", "1"] },
         "then": {
           "u_message": "Stamina: <u_val:stamina> (-<context_val:stamina_delta>)"
         }
@@ -104,7 +104,7 @@
         "math": ["u_val('fatigue')", "+=", "_fatigue_modifier"]
       },
       {
-        "if": { "math": ["_debug_weight", "=", "1"] },
+        "if": { "math": ["debug_weight", "=", "1"] },
         "then": {
           "u_message": "Fatigue: <u_val:fatigue> (+<context_val:fatigue_modifier>)"
         }
