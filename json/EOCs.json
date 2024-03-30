@@ -51,9 +51,7 @@
     "type": "effect_on_condition",
 
     "effect": [
-      {
-        "math": ["u_inventory_weight", "=", "0"]
-      },
+      { "math": ["u_inventory_weight", "=", "0"] },
       {
         "//": "while this is technically aimed at worn items, because of the pockets system, this grabs weight of the entire inventory sans the wielded item",
         "u_run_inv_eocs": "all",
@@ -77,9 +75,7 @@
           {
             "id": "inline_EOC_GET_WIELDED_WEIGHT",
             "effect": [
-              {
-                "math": ["u_inventory_weight", "+=", "n_val('weight')"]
-              }
+              { "math": ["u_inventory_weight", "+=", "n_val('weight')"] }
             ]
           }
         ]
