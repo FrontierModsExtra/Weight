@@ -108,9 +108,12 @@
     "effect": [
       { "math": ["debug_weight", "=", "0"] },
 
-      { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
-      { "u_lose_effect": "weight_affects_stamina" },
-      { "u_add_effect": "weight_affects_stamina", "duration": 31536000 }
+      {
+        "run_eocs": [
+          "EOC_GET_STAMINA_CONSUMPTION_MODIFIER",
+          "DEBUG_EOC_UPDATE_WEIGHT_EFFECT"
+        ]
+      }
     ]
   },
 
@@ -126,6 +129,15 @@
     "effect": [
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
       { "u_message": "<u_val:stamina_modifier>" }
+    ]
+  },
+  {
+    "id": "DEBUG_EOC_UPDATE_WEIGHT_EFFECT",
+    "type": "effect_on_condition",
+
+    "effect": [
+      { "u_lose_effect": "weight_affects_stamina" },
+      { "u_add_effect": "weight_affects_stamina", "duration": 31536000 }
     ]
   },
   {
