@@ -6,6 +6,51 @@
     "required_event": "avatar_moves",
 
     "effect": [
+      { "run_eocs": ["EOC_GET_INVENTORY_WEIGHT"] },
+
+      {
+        "math": ["_stamina_delta", "=", "u_stamina_modifier ^ 2"]
+      },
+      {
+        "math": ["u_val('stamina')", "-=", "_stamina_delta"]
+      },
+      {
+        "if": { "math": ["debug_weight", "=", "1"] },
+        "then": [
+          {
+            "math": ["_stamina_string", "=", "u_val('stamina')"]
+          },
+          {
+            "message": "Stamina: <context_val:stamina_string> (-<context_val:stamina_delta>)"
+          }
+        ]
+      },
+
+      {
+        "math": ["_fatigue_modifier", "=", "u_stamina_modifier"]
+      },
+      {
+        "math": ["u_val('fatigue')", "+=", "_fatigue_modifier"]
+      },
+      {
+        "if": { "math": ["debug_weight", "=", "1"] },
+        "then": [
+          {
+            "math": ["_fatigue_string", "=", "u_val('fatigue')"]
+          },
+          {
+            "message": "Fatigue: <context_val:fatigue_string> (+<context_val:fatigue_modifier>)"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "EOC_GET_INVENTORY_WEIGHT",
+    "type": "effect_on_condition",
+
+    "effect": [
       {
         "math": ["u_inventory_weight", "=", "0"]
       },
@@ -48,40 +93,6 @@
           "u_stamina_modifier",
           "=",
           "1 + ((u_inventory_weight / 10000000) ^ 2) / (u_val('strength') * 0.74)"
-        ]
-      },
-      {
-        "math": ["_stamina_delta", "=", "u_stamina_modifier ^ 2"]
-      },
-      {
-        "math": ["u_val('stamina')", "-=", "_stamina_delta"]
-      },
-      {
-        "if": { "math": ["debug_weight", "=", "1"] },
-        "then": [
-          {
-            "math": ["_stamina_string", "=", "u_val('stamina')"]
-          },
-          {
-            "u_message": "Stamina: <context_val:stamina_string> (-<context_val:stamina_delta>)"
-          }
-        ]
-      },
-      {
-        "math": ["_fatigue_modifier", "=", "u_stamina_modifier"]
-      },
-      {
-        "math": ["u_val('fatigue')", "+=", "_fatigue_modifier"]
-      },
-      {
-        "if": { "math": ["debug_weight", "=", "1"] },
-        "then": [
-          {
-            "math": ["_fatigue_string", "=", "u_val('fatigue')"]
-          },
-          {
-            "u_message": "Fatigue: <context_val:fatigue_string> (+<context_val:fatigue_modifier>)"
-          }
         ]
       }
     ]
