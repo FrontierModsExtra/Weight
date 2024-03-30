@@ -48,7 +48,7 @@
         "search_data": [{ "worn_only": true }],
         "true_eocs": [
           {
-            "id": "GET_INVENTORY_WEIGHT_WORN",
+            "id": "inline_EOC_GET_INVENTORY_WEIGHT",
             "effect": [
               {
                 "math": ["u_inventory_weight", "+=", "n_val('weight')"]
@@ -63,7 +63,7 @@
         "search_data": [{ "wielded_only": true }],
         "true_eocs": [
           {
-            "id": "GET_INVENTORY_WEIGHT_WIELDED",
+            "id": "inline_EOC_GET_WIELDED_WEIGHT",
             "effect": [
               {
                 "math": ["u_inventory_weight", "+=", "n_val('weight')"]
