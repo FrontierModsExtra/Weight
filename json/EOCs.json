@@ -44,6 +44,7 @@
         "math": ["u_inventory_weight", "=", "0"]
       },
       {
+        "//": "while this is technically aimed at worn items, because of the pockets system, this grabs weight of the entire inventory sans the wielded item",
         "u_run_inv_eocs": "all",
         "search_data": [{ "worn_only": true }],
         "true_eocs": [
@@ -73,7 +74,10 @@
         ]
       },
       {
-        "//math": "dividing inventory weight by 10M because the weight is calculated in milligrams, and we'd like kilograms",
+        "//math": [
+          "the weight is calculated in milligrams",
+          "dividing inventory weight by 10M yields weight in kilograms, divided by 10"
+        ],
         "math": [
           "u_stamina_modifier",
           "=",
