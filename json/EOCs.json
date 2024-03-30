@@ -58,9 +58,14 @@
       },
       {
         "if": { "math": ["debug_weight", "=", "1"] },
-        "then": {
-          "u_message": "Stamina: <u_val:stamina> (-<context_val:stamina_delta>)"
-        }
+        "then": [
+          {
+            "math": ["_stamina_string", "=", "u_val('stamina')"]
+          },
+          {
+            "u_message": "Stamina: <context_val:stamina_string> (-<context_val:stamina_delta>)"
+          }
+        ]
       },
       {
         "math": ["_fatigue_modifier", "=", "u_stamina_modifier"]
@@ -70,9 +75,14 @@
       },
       {
         "if": { "math": ["debug_weight", "=", "1"] },
-        "then": {
-          "u_message": "Fatigue: <u_val:fatigue> (+<context_val:fatigue_modifier>)"
-        }
+        "then": [
+          {
+            "math": ["_fatigue_string", "=", "u_val('fatigue')"]
+          },
+          {
+            "u_message": "Fatigue: <context_val:fatigue_string> (+<context_val:fatigue_modifier>)"
+          }
+        ]
       }
     ]
   },
