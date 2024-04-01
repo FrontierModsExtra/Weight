@@ -82,7 +82,7 @@
       },
       {
         "//math": [
-          "the weight is calculated in milligrams",
+          "the weight is reported in milligrams by the game",
           "dividing inventory weight by 10M yields weight in kilograms, divided by 10"
         ],
         "math": [
