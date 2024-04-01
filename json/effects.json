@@ -3,6 +3,8 @@
     "id": "weight_affects_stamina",
     "type": "effect_type",
 
+    "//": "effect intentionally invisible",
+
     "enchantments": [
       {
         "values": [
