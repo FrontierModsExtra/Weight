@@ -18,7 +18,7 @@
     ],
 
     "effect": [
-      { "math": ["debug_weight", "=", "0"] },
+      { "math": ["reporting_weight", "=", "0"] },
 
       {
         "run_eocs": [

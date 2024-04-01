@@ -13,6 +13,7 @@
       { "u_message": "<u_val:stamina_modifier>" }
     ]
   },
+
   {
     "id": "DEBUG_EOC_UPDATE_WEIGHT_EFFECT",
     "type": "effect_on_condition",
@@ -31,5 +32,18 @@
     ],
 
     "effect": [{ "u_lose_effect": "weight_affects_stamina" }]
+  },
+
+  {
+    "id": "DEBUG_EOC_ENABLE_REPORTING_WEIGHT",
+    "type": "effect_on_condition",
+
+    "effect": { "math": ["reporting_weight", "=", "1"] }
+  },
+  {
+    "id": "DEBUG_EOC_DISABLE_REPORTING_WEIGHT",
+    "type": "effect_on_condition",
+
+    "effect": { "math": ["reporting_weight", "=", "0"] }
   }
 ]
