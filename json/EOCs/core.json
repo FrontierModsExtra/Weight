@@ -1,0 +1,31 @@
+[
+  {
+    "id": "WEIGHT_INIT",
+    "type": "effect_on_condition",
+    "eoc_type": "EVENT",
+    "required_event": "game_begin",
+
+    "//notes": [
+      [
+        "this EOC adds or refreshes the effect that changes stamina regen",
+        "which adding mods mid-playthrough isn't encouraged, this mod is safe to add or remove",
+        "thus, we enable players to access the mod immediately"
+      ],
+      [
+        "the EOC call before the effects manually recalculates the modifier",
+        "that way, the modifier is applied immediately (or rather, next turn) upon the reception of the effect"
+      ]
+    ],
+
+    "effect": [
+      { "math": ["debug_weight", "=", "0"] },
+
+      {
+        "run_eocs": [
+          "EOC_GET_STAMINA_CONSUMPTION_MODIFIER",
+          "DEBUG_EOC_UPDATE_WEIGHT_EFFECT"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "DEBUG_EOC_REPORT_STAMINA_MODIFIER",
+    "type": "effect_on_condition",
+
+    "//notes": [
+      "recalculate the modifier before reporting it",
+      "this is useful for debugging, in case there's been a change in strength"
+    ],
+
+    "effect": [
+      { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
+      { "u_message": "<u_val:stamina_modifier>" }
+    ]
+  },
+  {
+    "id": "DEBUG_EOC_UPDATE_WEIGHT_EFFECT",
+    "type": "effect_on_condition",
+
+    "effect": [
+      { "u_lose_effect": "weight_affects_stamina" },
+      { "u_add_effect": "weight_affects_stamina", "duration": 31536000 }
+    ]
+  },
+  {
+    "id": "DEBUG_EOC_REMOVE_WEIGHT_EFFECT",
+    "type": "effect_on_condition",
+
+    "//notes": [
+      "this EOC allows you remove the effect before removing the mod mid-playthrough"
+    ],
+
+    "effect": [{ "u_lose_effect": "weight_affects_stamina" }]
+  }
+]
