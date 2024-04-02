@@ -9,37 +9,88 @@
       { "run_eocs": ["EOC_GET_INVENTORY_WEIGHT"] },
 
       {
-        "math": ["_stamina_delta", "=", "u_stamina_modifier ^ 2"]
+        "//": "weight in mg → weight in kg",
+        "math": ["_converted_weight", "=", "u_inventory_weight / 1000000"]
+      },
+      {
+        "//": [
+          "13 kg = baseline carry capacity",
+          "4 kg = additional carry capacity per point of strength"
+        ],
+        "math": ["_carry_capacity", "=", "13 + u_val('strength') * 4"]
+      },
+      {
+        "math": ["_weight_ratio", "=", "_converted_weight / _carry_capacity"]
+      },
+      {
+        "math": [
+          "u_stamina_modifier",
+          "=",
+          "( 1 + _weight_ratio ) ^ ( 1.44 + _weight_ratio )"
+        ]
+      },
+
+      {
+        "math": ["_stamina_delta", "=", "u_stamina_modifier"]
       },
       {
         "math": ["u_val('stamina')", "-=", "_stamina_delta"]
       },
       {
-        "if": { "math": ["reporting_weight", "=", "1"] },
+        "if": { "math": ["reporting_weight", "==", "1"] },
         "then": [
           {
-            "math": ["_stamina_string", "=", "u_val('stamina')"]
+            "math": ["_debug_string_stamina", "=", "u_val('stamina')"]
           },
           {
-            "message": "Stamina: <context_val:stamina_string> (-<context_val:stamina_delta>)"
+            "message": "Stamina: <context_val:debug_string_stamina> (-<context_val:stamina_delta>)"
           }
         ]
       },
 
       {
-        "math": ["_fatigue_modifier", "=", "u_stamina_modifier"]
+        "math": [
+          "_fatigue_modifier",
+          "=",
+          "( u_stamina_modifier - 1 ) * 0.00624"
+        ]
       },
       {
-        "math": ["u_val('fatigue')", "+=", "_fatigue_modifier"]
+        "math": ["u_fatigue_storage", "+=", "_fatigue_modifier"]
       },
       {
-        "if": { "math": ["reporting_weight", "=", "1"] },
+        "if": { "math": ["u_fatigue_storage", ">", "1"] },
         "then": [
           {
-            "math": ["_fatigue_string", "=", "u_val('fatigue')"]
+            "math": [
+              "u_fatigue_storage_steps_value",
+              "+=",
+              "u_fatigue_storage_steps"
+            ]
+          },
+          { "math": ["u_fatigue_storage_steps_quantity", "+=", "1"] },
+          {
+            "math": [
+              "u_fatigue_storage_steps_average",
+              "=",
+              "u_fatigue_storage_steps_value / u_fatigue_storage_steps_quantity"
+            ]
+          },
+          { "math": ["u_fatigue_storage_steps", "=", "0"] },
+
+          { "math": ["u_fatigue_storage", "-=", "1"] },
+          { "math": ["u_val('fatigue')", "+=", "1"] }
+        ],
+        "else": [{ "math": ["u_fatigue_storage_steps", "+=", "1"] }]
+      },
+      {
+        "if": { "math": ["reporting_weight", "==", "1"] },
+        "then": [
+          {
+            "math": ["_debug_string_fatigue", "=", "u_val('fatigue')"]
           },
           {
-            "message": "Fatigue: <context_val:fatigue_string> (+<context_val:fatigue_modifier>)"
+            "message": "Fatigue: <context_val:debug_string_fatigue> (+<context_val:fatigue_modifier> = <u_val:fatigue_storage> / <u_val:fatigue_storage_steps_average>)"
           }
         ]
       }
@@ -53,7 +104,7 @@
     "effect": [
       { "math": ["u_inventory_weight", "=", "0"] },
       {
-        "//": "while this is technically aimed at worn items, because of the pockets system, this grabs weight of the entire inventory sans the wielded item",
+        "//": "while this is technically only aimed at worn items, because of the pockets system, this grabs weight of the entire inventory sans the wielded item",
         "u_run_inv_eocs": "all",
         "search_data": [{ "worn_only": true }],
         "true_eocs": [
@@ -78,17 +129,6 @@
               { "math": ["u_inventory_weight", "+=", "n_val('weight')"] }
             ]
           }
-        ]
-      },
-      {
-        "//math": [
-          "the weight is reported in milligrams by the game",
-          "dividing inventory weight by 10M yields weight in kilograms, divided by 10"
-        ],
-        "math": [
-          "u_stamina_modifier",
-          "=",
-          "1 + ((u_inventory_weight / 10000000) ^ 2) / (u_val('strength') * 0.74)"
         ]
       }
     ]
