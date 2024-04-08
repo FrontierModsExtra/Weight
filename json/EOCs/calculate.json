@@ -37,7 +37,7 @@
         "math": ["u_val('stamina')", "-=", "_stamina_delta"]
       },
       {
-        "if": { "math": ["reporting_weight", "==", "1"] },
+        "if": { "u_has_trait": "DEBUG_MOD_REPORTING" },
         "then": [
           {
             "math": ["_debug_string_stamina", "=", "u_val('stamina')"]
@@ -84,7 +84,7 @@
         "else": [{ "math": ["u_fatigue_storage_steps", "+=", "1"] }]
       },
       {
-        "if": { "math": ["reporting_weight", "==", "1"] },
+        "if": { "u_has_trait": "DEBUG_MOD_REPORTING" },
         "then": [
           {
             "math": ["_debug_string_fatigue", "=", "u_val('fatigue')"]

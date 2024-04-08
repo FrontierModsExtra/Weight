@@ -10,7 +10,7 @@
 
     "effect": [
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
-      { "u_message": "<u_val:stamina_modifier>" }
+      { "u_message": "[Weight] <u_val:stamina_modifier>" }
     ]
   },
 
@@ -47,25 +47,6 @@
     "effect": [
       { "math": ["u_fatigue_storage_steps", "=", "0"] },
       { "u_message": "[Weight] Steps reset" }
-    ]
-  },
-
-  {
-    "id": "debug_Weight_EOC_REPORTING_ENABLE",
-    "type": "effect_on_condition",
-
-    "effect": [
-      { "math": ["reporting_weight", "=", "1"] },
-      { "u_message": "[Weight] Debug data reporting enabled" }
-    ]
-  },
-  {
-    "id": "debug_Weight_EOC_REPORTING_DISABLE",
-    "type": "effect_on_condition",
-
-    "effect": [
-      { "math": ["reporting_weight", "=", "0"] },
-      { "u_message": "[Weight] Debug data reporting disabled" }
     ]
   }
 ]

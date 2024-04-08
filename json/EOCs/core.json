@@ -18,8 +18,6 @@
     ],
 
     "effect": [
-      { "math": ["reporting_weight", "=", "0"] },
-
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
 
       { "u_add_effect": "weight_affects_stamina", "duration": "PERMANENT" }
