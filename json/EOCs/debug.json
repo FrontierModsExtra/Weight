@@ -10,7 +10,7 @@
 
     "effect": [
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
-      { "u_message": "[Weight] <u_val:stamina_modifier>" }
+      { "u_message": "[Weight] Stamina modifier: <u_val:stamina_modifier>" }
     ]
   },
 
