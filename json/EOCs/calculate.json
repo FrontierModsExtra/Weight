@@ -1,12 +1,12 @@
 [
   {
-    "id": "EOC_GET_STAMINA_CONSUMPTION_MODIFIER",
+    "id": "Weight_EOC_GET_STAMINA_CONSUMPTION_MODIFIER",
     "type": "effect_on_condition",
     "eoc_type": "EVENT",
     "required_event": "avatar_moves",
 
     "effect": [
-      { "run_eocs": ["EOC_GET_INVENTORY_WEIGHT"] },
+      { "run_eocs": ["Weight_EOC_GET_INVENTORY_WEIGHT"] },
 
       {
         "//": "weight in mg → weight in kg",
@@ -37,15 +37,14 @@
         "math": ["u_val('stamina')", "-=", "_stamina_delta"]
       },
       {
-        "if": { "u_has_trait": "DEBUG_MOD_REPORTING" },
-        "then": [
-          {
-            "math": ["_debug_string_stamina", "=", "u_val('stamina')"]
-          },
-          {
-            "message": "Stamina: <context_val:debug_string_stamina> (-<context_val:stamina_delta>)"
-          }
-        ]
+        "math": ["_debug_string_stamina", "=", "u_val('stamina')"]
+      },
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE_SPAMMY",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Stamina: <context_val:debug_string_stamina> (-<context_val:stamina_delta>)"
+        }
       },
 
       {
@@ -68,7 +67,7 @@
               "u_fatigue_storage_steps"
             ]
           },
-          { "math": ["u_fatigue_storage_steps_quantity", "+=", "1"] },
+          { "math": ["u_fatigue_storage_steps_quantity", "++"] },
           {
             "math": [
               "u_fatigue_storage_steps_average",
@@ -78,27 +77,26 @@
           },
           { "math": ["u_fatigue_storage_steps", "=", "0"] },
 
-          { "math": ["u_fatigue_storage", "-=", "1"] },
-          { "math": ["u_val('fatigue')", "+=", "1"] }
+          { "math": ["u_fatigue_storage", "--"] },
+          { "math": ["u_val('fatigue')", "++"] }
         ],
-        "else": [{ "math": ["u_fatigue_storage_steps", "+=", "1"] }]
+        "else": [{ "math": ["u_fatigue_storage_steps", "++"] }]
       },
       {
-        "if": { "u_has_trait": "DEBUG_MOD_REPORTING" },
-        "then": [
-          {
-            "math": ["_debug_string_fatigue", "=", "u_val('fatigue')"]
-          },
-          {
-            "message": "Fatigue: <context_val:debug_string_fatigue> (+<context_val:fatigue_modifier> = <u_val:fatigue_storage> / <u_val:fatigue_storage_steps_average>)"
-          }
-        ]
+        "math": ["_debug_string_fatigue", "=", "u_val('fatigue')"]
+      },
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE_SPAMMY",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Fatigue: <context_val:debug_string_fatigue> (+<context_val:fatigue_modifier> = <u_val:fatigue_storage> / <u_val:fatigue_storage_steps_average>)"
+        }
       }
     ]
   },
 
   {
-    "id": "EOC_GET_INVENTORY_WEIGHT",
+    "id": "Weight_EOC_GET_INVENTORY_WEIGHT",
     "type": "effect_on_condition",
 
     "effect": [
@@ -109,7 +107,7 @@
         "search_data": [{ "worn_only": true }],
         "true_eocs": [
           {
-            "id": "inline_EOC_GET_INVENTORY_WEIGHT",
+            "id": "inline_Weight_EOC_GET_INVENTORY_WEIGHT",
             "effect": [
               {
                 "math": ["u_inventory_weight", "+=", "n_val('weight')"]
@@ -124,7 +122,7 @@
         "search_data": [{ "wielded_only": true }],
         "true_eocs": [
           {
-            "id": "inline_EOC_GET_WIELDED_WEIGHT",
+            "id": "inline_Weight_EOC_GET_WIELDED_WEIGHT",
             "effect": [
               { "math": ["u_inventory_weight", "+=", "n_val('weight')"] }
             ]

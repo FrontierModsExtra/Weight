@@ -10,7 +10,13 @@
 
     "effect": [
       { "run_eocs": ["EOC_GET_STAMINA_CONSUMPTION_MODIFIER"] },
-      { "u_message": "[Weight] Stamina modifier: <u_val:stamina_modifier>" }
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Stamina modifier: <u_val:stamina_modifier>"
+        }
+      }
     ]
   },
 
@@ -21,7 +27,13 @@
     "effect": [
       { "u_lose_effect": "weight_affects_stamina" },
       { "u_add_effect": "weight_affects_stamina", "duration": "PERMANENT" },
-      { "u_message": "[Weight] Stamina effect updated" }
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Stamina effect updated"
+        }
+      }
     ]
   },
   {
@@ -34,7 +46,13 @@
 
     "effect": [
       { "u_lose_effect": "weight_affects_stamina" },
-      { "u_message": "[Weight] Stamina effect removed" }
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Stamina effect removed"
+        }
+      }
     ]
   },
 
@@ -42,11 +60,19 @@
     "id": "debug_Weight_EOC_RESET_STEPS",
     "type": "effect_on_condition",
 
-    "//notes": ["this EOC resets steps calculation (used for debug only)"],
+    "//notes": [
+      "this EOC resets the number of steps used to calculate fatigue accumulation (used for debug only)"
+    ],
 
     "effect": [
       { "math": ["u_fatigue_storage_steps", "=", "0"] },
-      { "u_message": "[Weight] Steps reset" }
+      {
+        "run_eoc_with": "Core_debug_EOC_SHOW_DEBUG_MESSAGE",
+        "variables": {
+          "tag": "WEIGHT",
+          "message": "Steps reset"
+        }
+      }
     ]
   }
 ]
